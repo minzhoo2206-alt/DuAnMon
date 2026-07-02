@@ -13,11 +13,8 @@ class DB {
             $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}";
             $this->pdo = new PDO($dsn, $this->username, $this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            echo "kết nối thành công";
-
         } catch (PDOException $e) {
-            echo "Kết nối thất bại: " . $e->getMessage();
+            echo "Ket noi that bai: " . $e->getMessage();
             exit;
         }
     }

@@ -1,13 +1,21 @@
-<div class="container mt-5">
-    <h1 class="mb-4">Quản lý sản phẩm</h1>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['admin'])) {
+    header("Location: index.php?url=admin");
+    exit;
+}
+?>
 
-    <!-- Nút thêm sản phẩm -->
+<div class="container mt-5">
+    <h1 class="mb-4">Xin chào Admin <?= htmlspecialchars($_SESSION['admin']) ?>!</h1>
     <div class="mb-3">
-        <a href="index.php?url=product_add" class="btn btn-success">
-            ➕ Thêm sản phẩm
-        </a>
+        <a href="index.php?url=product_add" class="btn btn-success">Thêm sản phẩm</a>
+        <a href="index.php?url=admin_logout" class="btn btn-danger">Đăng xuất</a>
     </div>
 
+    <!-- Quản lý sản phẩm -->
     <?php if (!empty($products)): ?>
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-dark text-center">
@@ -31,15 +39,13 @@
                                 style="width:80px; height:auto;">
                         </td>
                         <td class="text-center">
-                            <!-- Các nút điều hướng sang page riêng -->
                             <a href="index.php?url=product_edit&id=<?= $product['id'] ?>"
                                 class="btn btn-warning btn-sm mb-1">✏️ Sửa</a>
                             <a href="index.php?url=product_delete&id=<?= $product['id'] ?>"
                                 class="btn btn-danger btn-sm mb-1"
                                 onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">🗑️ Xóa</a>
-                            <a href="index.php?url=product_detail&id=<?= $product['id'] ?>&from=dashboard"
+                            <a href="index.php?url=product_detail&id=<?= $product['id'] ?>&from=admin"
                                 class="btn btn-info btn-sm">👁️ Xem chi tiết</a>
-
                         </td>
                     </tr>
                 <?php endforeach; ?>

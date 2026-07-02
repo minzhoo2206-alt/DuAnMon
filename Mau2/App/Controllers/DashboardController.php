@@ -22,6 +22,7 @@ class DashboardController {
             $image = $_POST['image'];
             $this->productModel->createProduct($title, $description, $image);
             header("Location: index.php?url=dashboard");
+            exit;
         } else {
             include __DIR__ . '/../admin/product_add.php';
         }
@@ -34,6 +35,7 @@ class DashboardController {
         $image = $_POST['image'];
         $this->productModel->updateProduct($id, $title, $description, $image);
         header("Location: index.php?url=dashboard");
+        exit;
     } else {
         // Lấy sản phẩm theo ID
         $product = $this->productModel->getProductById($id);
@@ -48,8 +50,6 @@ class DashboardController {
     public function delete($id) {
         $this->productModel->deleteProduct($id);
         header("Location: index.php?url=dashboard");
+        exit;
     }
 }
-
-$controller = new DashboardController();
-$controller->index();
